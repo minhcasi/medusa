@@ -237,6 +237,7 @@ export type HttpCompressionOptions = {
  */
 export type ServerlessPlatform =
   | "supabase-edge"
+  | "lovable-cloud"
   | "vercel"
   | "aws-lambda"
   | "cloudflare-workers"
@@ -315,10 +316,48 @@ export interface SupabaseServerlessOptions {
 }
 
 /**
+ * Lovable Cloud-specific configuration options.
+ * Lovable Cloud (https://lovable.dev) uses Supabase as its backend infrastructure.
+ */
+export interface LovableCloudOptions {
+  /**
+   * Lovable project ID (from the Lovable dashboard).
+   */
+  projectId?: string
+  /**
+   * Lovable API key for authenticated requests.
+   */
+  apiKey?: string
+  /**
+   * Enable Lovable Cloud's built-in monitoring and logging.
+   * Default: true
+   */
+  enableMonitoring?: boolean
+  /**
+   * Enable Lovable Cloud's AI features integration.
+   * Default: false
+   */
+  enableAI?: boolean
+  /**
+   * Lovable Cloud environment (development, staging, production).
+   */
+  environment?: "development" | "staging" | "production"
+  /**
+   * Custom Lovable Cloud API endpoint (for enterprise deployments).
+   */
+  apiEndpoint?: string
+  /**
+   * Whether to use Lovable's managed database instead of external Supabase.
+   * Default: true (uses Lovable's provisioned database)
+   */
+  useManagedDatabase?: boolean
+}
+
+/**
  * @interface
  *
  * Serverless-specific configuration options for running Medusa in
- * serverless environments like AWS Lambda, Vercel, or Supabase Edge Functions.
+ * serverless environments like AWS Lambda, Vercel, Lovable Cloud, or Supabase Edge Functions.
  */
 export interface ServerlessOptions {
   /**
@@ -345,6 +384,7 @@ export interface ServerlessOptions {
    *
    * Supported platforms:
    * - `supabase-edge`: Supabase Edge Functions (Deno runtime)
+   * - `lovable-cloud`: Lovable Cloud (https://lovable.dev)
    * - `vercel`: Vercel Serverless Functions
    * - `aws-lambda`: AWS Lambda Functions
    * - `cloudflare-workers`: Cloudflare Workers
@@ -374,6 +414,29 @@ export interface ServerlessOptions {
    * ```
    */
   supabase?: SupabaseServerlessOptions
+
+  /**
+   * Lovable Cloud-specific configuration options.
+   * Note: Lovable Cloud uses Supabase under the hood, so supabase options also apply.
+   *
+   * @example
+   * ```js title="medusa-config.ts"
+   * module.exports = defineConfig({
+   *   projectConfig: {
+   *     serverless: {
+   *       enabled: true,
+   *       platform: "lovable-cloud",
+   *       lovable: {
+   *         projectId: process.env.LOVABLE_PROJECT_ID,
+   *         enableMonitoring: true,
+   *         useManagedDatabase: true
+   *       }
+   *     }
+   *   }
+   * })
+   * ```
+   */
+  lovable?: LovableCloudOptions
 
   /**
    * Database connection pool settings optimized for serverless.

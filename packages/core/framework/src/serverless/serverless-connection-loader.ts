@@ -176,6 +176,11 @@ function extractProjectRef(url?: string): string | undefined {
  * Detect the serverless platform from environment variables.
  */
 function detectPlatform(): ServerlessPlatform {
+  // Lovable Cloud (check first as it uses Supabase under the hood)
+  if (process.env.LOVABLE_PROJECT_ID || process.env.LOVABLE_CLOUD) {
+    return "lovable-cloud"
+  }
+
   // Supabase Edge Functions
   if (process.env.SUPABASE_URL || process.env.DENO_DEPLOYMENT_ID) {
     return "supabase-edge"
@@ -213,6 +218,8 @@ function getPresetForPlatform(
   projectRef?: string
 ) {
   switch (platform) {
+    case "lovable-cloud":
+      return ServerlessPresets.lovableCloud(databaseUrl, projectRef)
     case "supabase-edge":
       return ServerlessPresets.supabaseEdge(databaseUrl, projectRef)
     case "vercel":
@@ -254,6 +261,8 @@ export function isServerlessEnvironment(): boolean {
     !!process.env.CF_WORKER ||
     !!process.env.SUPABASE_URL ||
     !!process.env.DENO_DEPLOYMENT_ID ||
+    !!process.env.LOVABLE_PROJECT_ID ||
+    !!process.env.LOVABLE_CLOUD ||
     !!process.env.MEDUSA_SERVERLESS
   )
 }

@@ -200,6 +200,20 @@ export const LAMBDA_FUNCTION_POOL = {
 }
 
 /**
+ * Configuration preset for Lovable Cloud.
+ * Lovable Cloud uses Supabase Edge Functions under the hood with
+ * managed PostgreSQL database and automatic scaling.
+ */
+export const LOVABLE_CLOUD_POOL = {
+  min: 0,
+  max: 1,
+  idleTimeoutMillis: 500,
+  acquireTimeoutMillis: 5000,
+  createTimeoutMillis: 5000,
+  reapIntervalMillis: 250,
+}
+
+/**
  * Connection options builder for common serverless platforms.
  */
 export const ServerlessPresets = {
@@ -264,6 +278,23 @@ export const ServerlessPresets = {
       acquireTimeoutMillis: 3000,
       createTimeoutMillis: 3000,
     },
+    driverOptions: {
+      ssl: { rejectUnauthorized: false },
+    },
+  }),
+
+  /**
+   * Preset for Lovable Cloud (https://lovable.dev)
+   * Lovable Cloud uses Supabase infrastructure with managed PostgreSQL.
+   * Optimized for Lovable's serverless function runtime.
+   */
+  lovableCloud: (databaseUrl: string, projectRef?: string): Options => ({
+    clientUrl: databaseUrl,
+    schema: "public",
+    useSupabasePooler: true,
+    supabaseProjectRef: projectRef,
+    useSessionMode: false,
+    pool: LOVABLE_CLOUD_POOL,
     driverOptions: {
       ssl: { rejectUnauthorized: false },
     },

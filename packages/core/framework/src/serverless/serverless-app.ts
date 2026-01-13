@@ -263,6 +263,22 @@ export async function createSupabaseEdgeHandler() {
 }
 
 /**
+ * Create a ready-to-use handler for Lovable Cloud.
+ * Lovable Cloud uses Supabase infrastructure under the hood.
+ *
+ * @example
+ * ```typescript
+ * import { createLovableCloudHandler } from "@medusajs/framework/serverless"
+ *
+ * export const handler = await createLovableCloudHandler()
+ * ```
+ */
+export async function createLovableCloudHandler() {
+  const app = await initializeServerlessApp({ platform: "lovable-cloud" })
+  return createServerlessHandler(app)
+}
+
+/**
  * Check if the app is initialized.
  */
 export function isAppInitialized(): boolean {

@@ -88,6 +88,7 @@ export {
   ServerlessPresets,
   SUPABASE_EDGE_FUNCTION_POOL,
   LAMBDA_FUNCTION_POOL,
+  LOVABLE_CLOUD_POOL,
 } from "./supabase-connection"
 
 // Serverless HTTP handlers
@@ -119,6 +120,7 @@ export {
   createLambdaHandler,
   createVercelServerlessHandler,
   createSupabaseEdgeHandler,
+  createLovableCloudHandler,
   isAppInitialized,
   getCachedApp,
 } from "./serverless-app"

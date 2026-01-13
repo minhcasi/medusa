@@ -3,6 +3,7 @@
  */
 export type ServerlessPlatform =
   | "supabase-edge"
+  | "lovable-cloud"
   | "vercel"
   | "aws-lambda"
   | "cloudflare-workers"
@@ -29,6 +30,12 @@ export interface ServerlessOptions {
    * Supabase-specific configuration.
    */
   supabase?: SupabaseServerlessOptions
+
+  /**
+   * Lovable Cloud-specific configuration.
+   * Note: Lovable Cloud uses Supabase under the hood, so supabase options also apply.
+   */
+  lovable?: LovableCloudOptions
 
   /**
    * Database connection pool settings optimized for serverless.
@@ -105,6 +112,50 @@ export interface SupabaseServerlessOptions {
    * Default: false
    */
   useSupabaseAuth?: boolean
+}
+
+/**
+ * Lovable Cloud-specific configuration options.
+ * Lovable Cloud uses Supabase as its backend infrastructure.
+ */
+export interface LovableCloudOptions {
+  /**
+   * Lovable project ID (from the Lovable dashboard).
+   */
+  projectId?: string
+
+  /**
+   * Lovable API key for authenticated requests.
+   */
+  apiKey?: string
+
+  /**
+   * Enable Lovable Cloud's built-in monitoring and logging.
+   * Default: true
+   */
+  enableMonitoring?: boolean
+
+  /**
+   * Enable Lovable Cloud's AI features integration.
+   * Default: false
+   */
+  enableAI?: boolean
+
+  /**
+   * Lovable Cloud environment (development, staging, production).
+   */
+  environment?: "development" | "staging" | "production"
+
+  /**
+   * Custom Lovable Cloud API endpoint (for enterprise deployments).
+   */
+  apiEndpoint?: string
+
+  /**
+   * Whether to use Lovable's managed database instead of external Supabase.
+   * Default: true (uses Lovable's provisioned database)
+   */
+  useManagedDatabase?: boolean
 }
 
 /**
