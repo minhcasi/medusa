@@ -233,6 +233,175 @@ export type HttpCompressionOptions = {
 }
 
 /**
+ * Serverless platform types supported by Medusa.
+ */
+export type ServerlessPlatform =
+  | "supabase-edge"
+  | "vercel"
+  | "aws-lambda"
+  | "cloudflare-workers"
+  | "netlify"
+  | "custom"
+
+/**
+ * Connection pool options optimized for serverless environments.
+ */
+export interface ServerlessPoolOptions {
+  /**
+   * Minimum number of connections in the pool.
+   * Default: 0 (no idle connections)
+   */
+  min?: number
+  /**
+   * Maximum number of connections in the pool.
+   * Default: 1 for serverless
+   */
+  max?: number
+  /**
+   * Time in milliseconds before idle connections are closed.
+   * Default: 1000 for serverless
+   */
+  idleTimeoutMillis?: number
+  /**
+   * Time in milliseconds to wait for a connection to be acquired.
+   * Default: 10000 for serverless
+   */
+  acquireTimeoutMillis?: number
+  /**
+   * Time in milliseconds to wait for a connection to be created.
+   * Default: 10000 for serverless
+   */
+  createTimeoutMillis?: number
+  /**
+   * Interval in milliseconds for reaping idle connections.
+   * Default: 500 for serverless
+   */
+  reapIntervalMillis?: number
+}
+
+/**
+ * Supabase-specific serverless configuration.
+ */
+export interface SupabaseServerlessOptions {
+  /**
+   * Supabase project reference (e.g., "your-project-ref").
+   * Used to construct the connection pooler URL.
+   */
+  projectRef?: string
+  /**
+   * Whether to use Supabase's built-in connection pooler (PgBouncer).
+   * Default: true
+   */
+  usePooler?: boolean
+  /**
+   * Use session mode instead of transaction mode for the pooler.
+   * Session mode maintains state but uses more connections.
+   * Default: false (transaction mode)
+   */
+  useSessionMode?: boolean
+  /**
+   * Supabase anon key for client-side authentication.
+   */
+  anonKey?: string
+  /**
+   * Supabase service role key for server-side operations.
+   */
+  serviceRoleKey?: string
+  /**
+   * Whether to use Supabase Auth for session management.
+   * Default: false
+   */
+  useSupabaseAuth?: boolean
+}
+
+/**
+ * @interface
+ *
+ * Serverless-specific configuration options for running Medusa in
+ * serverless environments like AWS Lambda, Vercel, or Supabase Edge Functions.
+ */
+export interface ServerlessOptions {
+  /**
+   * Enable serverless mode. When true, optimizes connection pooling,
+   * session handling, and other settings for serverless environments.
+   *
+   * @example
+   * ```js title="medusa-config.ts"
+   * module.exports = defineConfig({
+   *   projectConfig: {
+   *     serverless: {
+   *       enabled: true,
+   *       platform: "vercel"
+   *     }
+   *   }
+   * })
+   * ```
+   */
+  enabled: boolean
+
+  /**
+   * The serverless platform being used. Helps apply platform-specific
+   * optimizations.
+   *
+   * Supported platforms:
+   * - `supabase-edge`: Supabase Edge Functions (Deno runtime)
+   * - `vercel`: Vercel Serverless Functions
+   * - `aws-lambda`: AWS Lambda Functions
+   * - `cloudflare-workers`: Cloudflare Workers
+   * - `netlify`: Netlify Functions
+   * - `custom`: Custom serverless platform
+   */
+  platform?: ServerlessPlatform
+
+  /**
+   * Supabase-specific configuration options.
+   *
+   * @example
+   * ```js title="medusa-config.ts"
+   * module.exports = defineConfig({
+   *   projectConfig: {
+   *     serverless: {
+   *       enabled: true,
+   *       platform: "supabase-edge",
+   *       supabase: {
+   *         projectRef: "your-project-ref",
+   *         usePooler: true,
+   *         useSessionMode: false
+   *       }
+   *     }
+   *   }
+   * })
+   * ```
+   */
+  supabase?: SupabaseServerlessOptions
+
+  /**
+   * Database connection pool settings optimized for serverless.
+   * These override the default pool settings when serverless mode is enabled.
+   */
+  pool?: ServerlessPoolOptions
+
+  /**
+   * Timeout in milliseconds for serverless function execution.
+   * Default: 30000 (30 seconds)
+   */
+  timeout?: number
+
+  /**
+   * Whether to disable background jobs in serverless mode.
+   * Recommended: true for serverless, as jobs should run in separate workers.
+   * Default: true
+   */
+  disableJobs?: boolean
+
+  /**
+   * Whether to disable real-time subscriptions in serverless mode.
+   * Default: true
+   */
+  disableSubscriptions?: boolean
+}
+
+/**
  * @interface
  *
  * Medusa Cloud configurations.
@@ -938,6 +1107,31 @@ export type ProjectConfigOptions = {
    * It gets automatically populated in the cloud, and is not needed outside of it.
    */
   cloud?: MedusaCloudOptions
+
+  /**
+   * Serverless-specific configuration for running Medusa in serverless
+   * environments like AWS Lambda, Vercel, or Supabase Edge Functions.
+   *
+   * When enabled, Medusa optimizes database connection pooling, disables
+   * background jobs, and applies other serverless-friendly settings.
+   *
+   * @example
+   * ```js title="medusa-config.ts"
+   * module.exports = defineConfig({
+   *   projectConfig: {
+   *     serverless: {
+   *       enabled: true,
+   *       platform: "vercel",
+   *       supabase: {
+   *         projectRef: process.env.SUPABASE_PROJECT_REF,
+   *         usePooler: true
+   *       }
+   *     }
+   *   }
+   * })
+   * ```
+   */
+  serverless?: ServerlessOptions
 }
 
 /**
