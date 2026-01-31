@@ -1,0 +1,21 @@
+{
+  "name": "dev-server",
+  "version": "1.0.0",
+  "description": "Medusa dev server",
+  "main": "index.js",
+  "scripts": {
+    "dev": "medusa develop",
+    "start": "medusa start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@medusajs/cli": "workspace:*",
+    "@medusajs/draft-order": "workspace:*",
+    "@medusajs/framework": "workspace:*",
+    "@medusajs/medusa": "workspace:*",
+    "dotenv": "^16.3.1"
+  }
+}

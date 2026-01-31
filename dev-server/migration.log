@@ -1,0 +1,3 @@
+[32minfo[39m:    redisUrl not found. A fake redis instance will be used.
+? Enter the database name (medusa-dev-server)[47G
+[?25h

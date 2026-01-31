@@ -1,3 +1,148 @@
+  Core Features                                                   
+                                                                  
+  Modular Architecture                                            
+  - 30+ commerce modules (product, order, cart, payment,          
+  inventory, pricing, etc.)                                       
+  - 15+ provider implementations for payments, fulfillment,       
+  notifications                                                   
+  - Each module is independent and composable                     
+                                                                  
+  Commerce Capabilities                                           
+  - Product catalog management                                    
+  - Order management & fulfillment                                
+  - Cart & checkout flows                                         
+  - Payment processing                                            
+  - Inventory tracking                                            
+  - Promotions & discounts                                        
+  - Customer management                                           
+  - Multi-region/currency support                                 
+                                                                  
+  Technical Features                                              
+  - Workflows SDK - Composable, transactional business logic with 
+  compensation (rollback)                                         
+  - API Routes - RESTful API with typed requests/responses        
+  - Admin Dashboard - React-based admin UI                        
+  - Event System - Domain events for extensibility                
+  - Query Graph - Flexible data querying across modules           
+                                                                  
+  Developer Experience                                            
+  - TypeScript-first with strict typing                           
+  - Dependency injection via decorators                           
+  - CLI tools for scaffolding                                     
+  - Integration test infrastructure                               
+                                                                  
+  Extensibility                                                   
+  - Custom modules and providers                                  
+  - Workflow hooks for customization                              
+  - Plugin architecture                                           
+                                                                  
+  The platform targets developers building custom e-commerce      
+  solutions who need flexibility beyond traditional monolithic    
+  platforms like Shopify or WooCommerce.                          
+                                        
+
+
+ Medusa Packages Structure                          
+                                                     
+  packages/                                          
+  ├── medusa/                  # Main Medusa         
+  application package                                
+  ├── medusa-telemetry/        # Telemetry collection
+  ├── medusa-test-utils/       # Testing utilities   
+  │                                                  
+  ├── core/                    # Core Framework      
+  │   ├── framework/           # Core runtime, HTTP, 
+  database                                           
+  │   ├── types/               # TypeScript          
+  definitions                                        
+  │   ├── utils/               # Shared utilities    
+  │   ├── workflows-sdk/       # Workflow composition
+   SDK                                               
+  │   ├── core-flows/          # Predefined business 
+  workflows                                          
+  │   ├── modules-sdk/         # Module development  
+  SDK                                                
+  │   ├── orchestration/       # Workflow            
+  orchestration                                      
+  │   └── js-sdk/              # JavaScript client   
+  SDK                                                
+  │                                                  
+  ├── modules/                 # Commerce Modules    
+  (35)                                               
+  │   ├── product/             # Product catalog     
+  │   ├── order/               # Order management    
+  │   ├── cart/                # Shopping cart       
+  │   ├── payment/             # Payment processing  
+  │   ├── fulfillment/         # Fulfillment/shipping
+  │   ├── inventory/           # Inventory tracking  
+  │   ├── pricing/             # Price management    
+  │   ├── promotion/           # Discounts &         
+  promotions                                         
+  │   ├── customer/            # Customer management 
+  │   ├── user/                # Admin users         
+  │   ├── auth/                # Authentication      
+  │   ├── api-key/             # API key management  
+  │   ├── region/              # Multi-region support
+  │   ├── currency/            # Currency handling   
+  │   ├── tax/                 # Tax calculation     
+  │   ├── notification/        # Notifications       
+  │   ├── file/                # File storage        
+  │   ├── store/               # Store settings      
+  │   ├── sales-channel/       # Sales channels      
+  │   ├── stock-location/      # Stock locations     
+  │   ├── analytics/           # Analytics           
+  │   ├── caching/             # Cache abstraction   
+  │   ├── locking/             # Distributed locking 
+  │   ├── rbac/                # Role-based access   
+  control                                            
+  │   ├── settings/            # Settings management 
+  │   ├── translation/         # i18n translations   
+  │   ├── index/               # Search indexing     
+  │   ├── link-modules/        # Module linking      
+  │   ├── cache-inmemory/      # In-memory cache     
+  │   ├── cache-redis/         # Redis cache         
+  │   ├── event-bus-local/     # Local event bus     
+  │   ├── event-bus-redis/     # Redis event bus     
+  │   ├── workflow-engine-*/   # Workflow engines    
+  │   │                                              
+  │   └── providers/           # Provider            
+  Implementations (16)                               
+  │       ├── auth-emailpass/  # Email/password auth 
+  │       ├── auth-google/     # Google OAuth        
+  │       ├── auth-github/     # GitHub OAuth        
+  │       ├── payment-stripe/  # Stripe payments     
+  │       ├── file-local/      # Local file storage  
+  │       ├── file-s3/         # AWS S3 storage      
+  │       ├── notification-sendgrid/  # SendGrid     
+  emails                                             
+  │       ├── notification-local/     # Local        
+  notifications                                      
+  │       ├── fulfillment-manual/     # Manual       
+  fulfillment                                        
+  │       ├── locking-postgres/       # Postgres     
+  locking                                            
+  │       ├── locking-redis/          # Redis locking
+  │       ├── caching-redis/          # Redis caching
+  │       ├── analytics-local/        # Local        
+  analytics                                          
+  │       ├── analytics-posthog/      # PostHog      
+  analytics                                          
+  │       └── supabase/               # Supabase     
+  integration                                        
+  │                                                  
+  ├── admin/                   # Admin Dashboard     
+  │   ├── dashboard/           # React admin UI      
+  │   ├── admin-sdk/           # Admin SDK           
+  │   ├── admin-shared/        # Shared components   
+  │   ├── admin-bundler/       # Build tooling       
+  │   └── admin-vite-plugin/   # Vite plugin         
+  │                                                  
+  ├── cli/                     # CLI Tools           
+  ├── design-system/           # UI Component Library
+  ├── deps/                    # Shared dependencies 
+  └── plugins/                 # Plugin system 
+
+
 <p align="center">
   <a href="https://www.medusajs.com">
   <picture>

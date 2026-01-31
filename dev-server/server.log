@@ -1,0 +1,19 @@
+[32minfo[39m:    redisUrl not found. A fake redis instance will be used.
+[32minfo[39m:    [Watcher] Using standard dev server (restart on file change)
+[32minfo[39m:    [Watcher] Watching filesystem to reload dev server on file change
+[32minfo[39m:    [Watcher] modified server.log modified: restarting dev server
+[32minfo[39m:    [Watcher] Reloaded in 0.79ms
+[32minfo[39m:    [Watcher] modified server.log modified: restarting dev server
+[32minfo[39m:    [Watcher] Reloaded in 4.48ms
+[32minfo[39m:    [Watcher] modified server.log modified: restarting dev server
+[32minfo[39m:    [Watcher] Reloaded in 1.34ms
+[32minfo[39m:    [Watcher] modified server.log modified: restarting dev server
+[32minfo[39m:    [Watcher] Reloaded in 0.91ms
+[32minfo[39m:    [Watcher] modified server.log modified: restarting dev server
+[32minfo[39m:    [Watcher] Reloaded in 1.04ms
+[32minfo[39m:    redisUrl not found. A fake redis instance will be used.
+- Creating server
+[32minfo[39m:    redisUrl not found. A fake redis instance will be used.
+[32minfo[39m:    redisUrl not found. A fake redis instance will be used.
+[32minfo[39m:    No link to load from /Users/minh/Documents/GitHub/medusa/packages/plugins/draft-order/.medusa/server/src/links. skipped.
+[32minfo[39m:    No link to load from /Users/minh/Documents/GitHub/medusa/dev-server/src/links. skipped.

@@ -1,0 +1,8 @@
+Starting Medusa database migration...
+Database URL: ✓ Set
+[32minfo[39m:    redisUrl not found. A fake redis instance will be used.
+[32minfo[39m:    No link to load from /Users/minh/Documents/GitHub/medusa/packages/plugins/draft-order/.medusa/server/src/links. skipped.
+[32minfo[39m:    No link to load from /Users/minh/Documents/GitHub/medusa/dev-server/src/links. skipped.
+[32minfo[39m:    Running migrations...
+
+✗ Migration failed: spawnSync /bin/sh ETIMEDOUT
