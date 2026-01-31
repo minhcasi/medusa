@@ -1,12 +1,15 @@
+require("dotenv").config()
 const { defineConfig, Modules } = require("@medusajs/utils")
+
+// Validate required environment variables
+if (!process.env.DATABASE_URL && !process.env.SUPABASE_DATABASE_URL) {
+  throw new Error("DATABASE_URL or SUPABASE_DATABASE_URL environment variable is required")
+}
 
 module.exports = defineConfig({
   projectConfig: {
-    // Use Supabase if SUPABASE_DATABASE_URL is set, otherwise fallback to local
-    databaseUrl:
-      process.env.SUPABASE_DATABASE_URL ||
-      process.env.DATABASE_URL ||
-      "postgres://minh@localhost/medusa_test",
+    // Database URL from environment variables only (no hardcoded fallbacks)
+    databaseUrl: process.env.SUPABASE_DATABASE_URL || process.env.DATABASE_URL,
 
     // Supabase configuration (optional - enables Supabase-specific features)
     supabase: process.env.SUPABASE_DATABASE_URL
@@ -26,11 +29,11 @@ module.exports = defineConfig({
       : undefined,
 
     http: {
-      storeCors: "http://localhost:8000,http://localhost:3000",
-      adminCors: "http://localhost:7001,http://localhost:7000",
-      authCors: "http://localhost:7001,http://localhost:7000",
-      jwtSecret: process.env.JWT_SECRET || "supersecret",
-      cookieSecret: process.env.COOKIE_SECRET || "supersecret",
+      storeCors: process.env.STORE_CORS || "http://localhost:8000,http://localhost:3000",
+      adminCors: process.env.ADMIN_CORS || "http://localhost:7001,http://localhost:7000",
+      authCors: process.env.AUTH_CORS || "http://localhost:7001,http://localhost:7000",
+      jwtSecret: process.env.JWT_SECRET,
+      cookieSecret: process.env.COOKIE_SECRET,
     },
   },
 })
